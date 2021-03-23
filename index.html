@@ -22,8 +22,31 @@
     <title>Weather Dashboard</title>
 </head>
 <body>
-    <main class="container">
+    <main class="container-fluid">
         <div class="row bg-dark text-light"><div class="col-12"><h1 class="text-center">Weather Dashbord</h1></div></div>
+        <div class="row m-0">
+            <div class="col-lg-5 col-sm-12">
+                <div class="row"><h4>Search for a City</h4></div>
+                <div class="row"><input></input><button class="btn btn-primary"><i class="fas fa-search"></i></button></div>
+            </div>
+            <div class="col-lg-7 col-sm-12">
+                <div class="row">
+                    <div class="col-12"><h3 id="city">City</h3></div>
+                    <div clas="col-12">
+                        <div class="row">Temperature:<span></span></div>
+                        <div class="row">Humidity:<span></span></div>
+                        <div class="row">Wind Speed:<span></span></div>
+                        <div class="row">UV Index:<span></span></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <div class="col-12"><h3>5-Day Forecast</h3></div>
+                    </div>
+                    <div class="row" id="5-day-forecast"></div>
+                </div>
+            </div>
+        </div>
 
     </main>
 
