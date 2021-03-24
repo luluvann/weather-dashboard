@@ -1,61 +1,55 @@
 var apiKey = "d8d349d845326a05731f3af54ad5e65e"
-var city = "london"
+/* var city = "paris" */
 var numberOfDays = 5
 var units = "metric"
-var lon = "-0.1257"
-var lat = "51.5085"
+/* var lon = "-0.1257"
+var lat = "51.5085" */
 /* var lon = "2.3522"
 var lat = "48.8566" */
 
 
 // Get and save longitude, latitude for a specified city
 
-async function getLonLat(city,units,apiKey){
-let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${apiKey}`)
-return await response.json();
+async function getLonLat(units,apiKey){
+    var city = $("#cityToSearch").text()
+    let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${apiKey}`)
+    var data = await response.json()
+    var newEntry = {"city": data.name, "lon": data.coord.lon, "lat": data.coord.lat}
+    localStorage.setItem("lonLat",JSON.stringify(newEntry))
 }
-
-async function saveLonlat(){
-    var getLonLat = await getLonLat(city,units,apiKey)
-    localStorage.setItem("lonLat",JSON.stringify(getlonLat)) 
-    var lonLat = JSON.parse(localStorage.getItem("lonLat"))
-    console.log(lonLat)
-    
-    if(!lonLat){
-        var newEntry = {"city": getLonLat.name, "lon": getLonLat.coord.lon, "lat": getLonLat.coord.lat}
-        getLonLat.push(newEntry)
-        localStorage.setItem("lonLat",JSON.stringify(getlonLat)) 
-    } else {
-        var newEntry = {"city": getLonLat.name, "lon": getLonLat.coord.lon, "lat": getLonLat.coord.lat}
-        localStorage.setItem("lonLat",JSON.stringify(newEntry))
-    }
-}
-
 
     
 // Get and save weather forecast for a specified lon/lat in local storage
-async function getWeatherForecast(lon,lat,apiKey,units){
-    let response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${units}&exclude=hourly,minutely&appid=${apiKey}`)
-    return await response.json();
-    }
+async function getWeatherForecast(units,apiKey){
+    var lonLat = JSON.parse(localStorage.getItem("lonLat"))
+    var lon = lonLat.lon
+    var lat = lonLat.lat
+    var city = lonLat.city
 
-async function saveWeatherForecast(lon,lat,apiKey,city){
-    var weatherForecast = await getWeatherForecast(lon,lat,apiKey,units)
-    var savedWeatherForecast = JSON.parse(localStorage.getItem("weatherForecast"))
-    
+    let response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${units}&exclude=hourly,minutely&appid=${apiKey}`)
+    var data = await response.json()
+    return {"city": city, "lon": data}
+}
+
+async function saveWeatherForecast(){
+    var newEntry = await getWeatherForecast(units,apiKey)
+    console.log(newEntry)
+
+    var savedWeatherForecast = JSON.parse(localStorage.getItem("weatherForecast"));
+
     if(savedWeatherForecast){
-        localStorage.setItem("tempForecast",JSON.stringify(weatherForecast))
-        var tempForecast = JSON.parse(localStorage.getItem("tempForecast"))
-        savedWeatherForecast.push({"city":city,"data":tempForecast})
+        savedWeatherForecast.push(newEntry)
         localStorage.setItem("weatherForecast",JSON.stringify(savedWeatherForecast)) 
     } else {
         var savedWeatherForecast = []
-        savedWeatherForecast.push({"city":city,"data":weatherForecast})
+        savedWeatherForecast.push(newEntry)
         localStorage.setItem("weatherForecast",JSON.stringify(savedWeatherForecast)) 
     }
  }
 
-saveWeatherForecast(lon,lat,apiKey,city)
+getLonLat(units,apiKey)
+
+saveWeatherForecast()
 
 
 
@@ -79,7 +73,7 @@ function getForecast(){
 
 function setCurrentWeatherData(){
     var currentWeather = getData()
-    console.log(currentWeather)
+
     $("#temperature").text(currentWeather.temperature)
     $("#humidity").text(currentWeather.humidity)
     $("#windSpeed").text(currentWeather.windSpeed)
