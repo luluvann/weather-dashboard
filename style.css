@@ -9,3 +9,8 @@
 .container-fluid{
     padding:0
 }
+
+.box{
+    background-color: aqua;
+    border: black 1px solid;
+}

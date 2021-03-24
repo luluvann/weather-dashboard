@@ -25,25 +25,45 @@
     <main class="container-fluid">
         <div class="row bg-dark text-light"><div class="col-12"><h1 class="text-center">Weather Dashbord</h1></div></div>
         <div class="row m-0">
+            
             <div class="col-lg-5 col-sm-12">
-                <div class="row"><h4>Search for a City</h4></div>
-                <div class="row"><input></input><button class="btn btn-primary"><i class="fas fa-search"></i></button></div>
+                <div class="container m-1 bg-light">
+                    <div class="row"><h4>Search for a City</h4></div>
+                    <div class="row"><input id="cityToSearch"></input><button class="btn btn-primary"><i class="fas fa-search"></i></button></div>
+                    <div class="row" id="storedCities">
+                        <ul class="list-group col-12 mt-2 mb-2">
+                            <li class="list-group-item">blah</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div class="col-lg-7 col-sm-12">
-                <div class="row">
-                    <div class="col-12"><h3 id="city">City</h3></div>
-                    <div clas="col-12">
-                        <div class="row">Temperature:<span id="temperature"></span></div>
-                        <div class="row">Humidity:<span id="humidity"></span></div>
-                        <div class="row">Wind Speed:<span id="windSpeed"></span></div>
-                        <div class="row">UV Index:<span id="uvIndex"></span></div>
+                <div class="container m-1 border rounded">
+                    <div class="row">
+                        <div class="col-12"><h3 id="city">City</h3></div>
+                        <div clas="col-12">
+                            <div class="row">Temperature:<span id="temperature"></span></div>
+                            <div class="row">Humidity:<span id="humidity"></span></div>
+                            <div class="row">Wind Speed:<span id="windSpeed"></span></div>
+                            <div class="row">UV Index:<span id="uvIndex"></span></div>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="row">
-                        <div class="col-12"><h3>5-Day Forecast</h3></div>
+                    <div class="container m-1 border rounded">
+                        <div class="row">
+                            <div class="col-12"><h3>5-Day Forecast</h3></div>
+                        </div>
+                        <div class="row p-1" id="5-day-forecast">
+
+                            <div class="col-3 bg-primary text-light rounded" id="day1">
+                                <div class="row"><div class="col-12"><h6 id="date1">8/16/2020</h6></div></div>
+                                <div class="row"><h6 id="img1">img</h6></div>
+                                <div class="row"><p id="temp1">temp</p></div>
+                                <div class="row"><p id="humidity1">humi</p></div>
+                            </div> 
+                        </div>
                     </div>
-                    <div class="row" id="5-day-forecast"></div>
                 </div>
             </div>
         </div>
