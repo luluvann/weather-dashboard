@@ -29,9 +29,9 @@
             <div class="col-lg-5 col-sm-12">
                 <div class="container m-1 bg-light">
                     <div class="row"><h4>Search for a City</h4></div>
-                    <div class="row"><p id="cityToSearch">Strasbourg</p><button class="btn btn-primary"><i class="fas fa-search"></i></button></div>
-                    <div class="row" id="storedCities">
-                        <ul class="list-group col-12 mt-2 mb-2">
+                    <div class="row"><input id="cityToSearch"></input><button class="btn btn-primary" id="searchBtn"><i class="fas fa-search"></i></button></div>
+                    <div class="row" >
+                        <ul class="list-group col-12 mt-2 mb-2" id="storedCities">
                             <li class="list-group-item">blah</li>
                         </ul>
                     </div>
@@ -40,12 +40,8 @@
             <div class="col-lg-7 col-sm-12">
                 <div class="container m-1 border rounded">
                     <div class="row">
-                        <div class="col-12"><h3 id="city">City</h3></div>
-                        <div clas="col-12">
-                            <div class="row">Temperature:<span id="temperature"></span></div>
-                            <div class="row">Humidity:<span id="humidity"></span></div>
-                            <div class="row">Wind Speed:<span id="windSpeed"></span></div>
-                            <div class="row">UV Index:<span id="uvIndex"></span></div>
+                        <div class="col-12"><h3>Current Weather</h3></div>
+                        <div class="col-12" id="currentWeather">
                         </div>
                     </div>
                 </div>
