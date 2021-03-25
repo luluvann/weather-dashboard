@@ -75,7 +75,7 @@ function setCurrentWeather(city, data){
 function setWeatherForecast(data){    
     $("#5-day-forecast").empty()
 
-    for(var i = 0; i < 5; i++){
+    for(var i = 1; i < 6; i++){
         var unixTimeStamp = data.daily[i].dt
         var milliseconds = unixTimeStamp*1000
         var longDate = new Date(milliseconds)
@@ -83,9 +83,9 @@ function setWeatherForecast(data){
        
         $("#5-day-forecast").append(     
 
-        `<div class="col-lg-3 col-md-12 col-sm-12 bg-primary text-light rounded m-1" id="day${i+1}">
-            <div class="row"><div class="col-12"><h6 id="date${i+1}">${date}</h6></div></div>
-            <div class="row row-align"><img id="img${i+1}" src="http://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}@2x.png"></img><h6> ${data.daily[i].weather[0].description}</h6></div>
+        `<div class="col-lg-3 col-md-12 col-sm-12 bg-primary text-light rounded m-1" id="day${i}">
+            <div class="row"><div class="col-12"><h6 id="date${i}">${date}</h6></div></div>
+            <div class="row row-align"><img id="img${i}" src="http://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}@2x.png"></img><h6> ${data.daily[i].weather[0].description}</h6></div>
             <div class="row"><p id="temp${i+1}">Temp: ${data.daily[i].temp.day}°C</p></div>
             <div class="row"><p id="humidity${i+1}">Humid: ${data.daily[i].humidity}%</p></div>
         </div>`

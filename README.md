@@ -23,3 +23,4 @@ A weather dashboard that displays current and future weather conditions by city
 - Add search on Keyboard Enter
 - Check user input and if invalid city name, display message
 - On page load, display a default city or user current location
+- Better manage timezones
