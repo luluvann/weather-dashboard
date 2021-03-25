@@ -1,6 +1,7 @@
 var apiKey = "d8d349d845326a05731f3af54ad5e65e"
 var city = $("#cityToSearch").text()
 var units = "metric"
+$("#errorMessage").css("display","none")
 
 $("#searchBtn").on("click", function(){
     var city = $("#cityToSearch").val()
@@ -14,12 +15,17 @@ function getLonLat(city,units,apiKey) {
 
     fetch(apiUrl)
         .then(function(response) {
-            response.json()
-            .then(function(data) {
-                localStorage.setItem("lonLat",JSON.stringify({"city": data.name, "lon": data.coord.lon, "lat":data.coord.lat}))
-                getWeather(city,units,apiKey)
-      });
-    });
+            return response.json()
+        })
+        .then(function(data) {
+            localStorage.setItem("lonLat",JSON.stringify({"city": data.name, "lon": data.coord.lon, "lat":data.coord.lat}))
+            getWeather(city,units,apiKey)
+            $("#errorMessage").css("display","none")
+        })
+        .catch(function (error) {
+            $("#"+city.charAt(0).toUpperCase() + city.slice(1, city.length).toLowerCase()).remove()
+            $("#errorMessage").css("display","flex")
+        });
 };
 
 function getSavedLonLat(){
@@ -42,13 +48,15 @@ function getWeather(city,units,apiKey) {
     var apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${units}&exclude=hourly,minutely&appid=${apiKey}`
     fetch(apiUrl)
         .then(function(response) {
-            response.json()
-            .then(function(data) {
-                console.log(data)
-                setCurrentWeather(city,data)
-                setWeatherForecast(data)
-      });
-    });
+            return response.json()
+        })
+        .then(function(data) {    
+            setCurrentWeather(city,data)
+            setWeatherForecast(data)
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 };
 
 function setCurrentWeather(city, data){
