@@ -46,26 +46,33 @@ function getWeather(city,units,apiKey) {
             .then(function(data) {
                 console.log(data)
                 setCurrentWeather(city,data)
-                setWeatherForecast(city,data)
+                setWeatherForecast(data)
       });
     });
 };
 
 function setCurrentWeather(city, data){
+    var unixTimeStamp = data.current.dt
+    var milliseconds = unixTimeStamp*1000
+    var longDate = new Date(milliseconds)
+    var date = longDate.toDateString("en-US",{timeZoneName:"short"})
     
     $("#currentWeather").empty()
     $("#currentWeather").append(
         `<div clas="col-12">
-            <div class="row"><h4>${city}</h4></div>
+            <div class="row"><h4>${city} on ${date}</h4></div>
+            <div class="row row-align"><img src="http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png"></img><h4> ${data.current.weather[0].description}</h4></div>
             <div class="row"><p>Temperature: ${data.current.temp}°C</p></div>
             <div class="row"><p>Humidity: ${data.current.humidity}%</p></div>
             <div class="row"><p>Wind Speed: ${data.current.wind_speed}km/h</p></div>
-            <div class="row"><p>UV Index: ${data.current.uvi}</p></div>
+            <div class="row"><p>UV Index: <p class="uv" id="uvi">${data.current.uvi}</p></p></div>
         </div>`
     )
+    uvIndex(data.current.uvi)
+
 }
 
-function setWeatherForecast(city,data){    
+function setWeatherForecast(data){    
     $("#5-day-forecast").empty()
 
     for(var i = 0; i < 5; i++){
@@ -78,7 +85,7 @@ function setWeatherForecast(city,data){
 
         `<div class="col-lg-3 col-md-12 col-sm-12 bg-primary text-light rounded m-1" id="day${i+1}">
             <div class="row"><div class="col-12"><h6 id="date${i+1}">${date}</h6></div></div>
-            <div class="row"><img id="img${i+1}" src="http://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}@2x.png"></img></div>
+            <div class="row row-align"><img id="img${i+1}" src="http://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}@2x.png"></img><h6> ${data.daily[i].weather[0].description}</h6></div>
             <div class="row"><p id="temp${i+1}">Temp: ${data.daily[i].temp.day}°C</p></div>
             <div class="row"><p id="humidity${i+1}">Humid: ${data.daily[i].humidity}%</p></div>
         </div>`
@@ -99,6 +106,16 @@ $("#storedCities").on("click","button",function(){
 })
 
 
-
+function uvIndex(uvi){
+    if(uvi<3){
+        $("#uvi").addClass("low")
+    } else if (uvi<6){
+        $("#uvi").addClass("moderate")
+    } else if (uvi < 8){
+        $("#uvi").addClass("high")
+    } else if(uvi < 11){
+        $("#uvi").addClass("veryHigh")
+    } else { $("#uvi").addClass("extreme")}
+}
 
   

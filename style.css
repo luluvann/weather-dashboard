@@ -14,3 +14,40 @@
     background-color: aqua;
     border: black 1px solid;
 }
+
+img{
+    height: 50px;
+    width: 50px;
+}
+
+.row-align{
+    align-items: center;
+}
+
+
+.uv{
+    padding: 0px 2px;
+    margin-left:2px;
+    border-radius: 2px;
+    width:30px;
+    text-align: center;
+}
+.low{
+    background-color: #36db3a;
+}
+
+.moderate{
+    background-color:#ffcc0c
+}
+
+.high{
+    background-color: #f57c11;
+}
+
+.veryHigh{
+    background-color: #f6562a;
+}
+
+.extreme{
+    background-color: #c664f3;
+}
