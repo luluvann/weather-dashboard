@@ -5,6 +5,7 @@ var units = "metric"
 $("#searchBtn").on("click", function(){
     var city = $("#cityToSearch").val()
     getLonLat(city,units,apiKey)
+    saveCitySearched(city)
 })
 
 function getLonLat(city,units,apiKey) {
@@ -51,11 +52,11 @@ function getWeather(city,units,apiKey) {
 };
 
 function setCurrentWeather(city, data){
-    saveCitySearched(city)
+    
     $("#currentWeather").empty()
     $("#currentWeather").append(
         `<div clas="col-12">
-            <div class="row"><h3>${city}</h3></div>
+            <div class="row"><h4>${city}</h4></div>
             <div class="row"><p>Temperature: ${data.current.temp}°C</p></div>
             <div class="row"><p>Humidity: ${data.current.humidity}%</p></div>
             <div class="row"><p>Wind Speed: ${data.current.wind_speed}km/h</p></div>
@@ -86,11 +87,16 @@ function setWeatherForecast(city,data){
 }
 
 function saveCitySearched(city){
+    var city = city.charAt(0).toUpperCase() + city.slice(1, city.length).toLowerCase()
     $("#storedCities").append(
-        `<li class="list-group-item">${city}</li>`
+        `<button class="btn p-0" id="${city}"><li class="list-group-item">${city}</li></button>`
     )
 }
-  
+
+$("#storedCities").on("click","button",function(){
+    var city = $(this).attr("id")
+    getLonLat(city,units,apiKey)
+})
 
 
 
